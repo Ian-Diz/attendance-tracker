@@ -1,27 +1,35 @@
-# React + TypeScript + Vite
+# Cooperative Meet Tracker Chrome Extension
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Improve collaboration and ensure equal participation in your Google Meet meetings with Cooperative Meet Tracker, a powerful Chrome extension designed to track and enhance communication dynamics. With a user-friendly interface, this extension helps you keep a close eye on who has shared their thoughts, ensuring a balanced and inclusive discussion.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Participation Tracking:**
 
-## Expanding the ESLint configuration
+  - Seamlessly track who has spoken during your Google Meet sessions with the Cooperative Meet Tracker.
+  - An unobtrusive faded thumbs up icon appears next to each participant's name.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Interactive Thumbs Up System:**
 
-- Configure the top-level `parserOptions` property like this:
+  - Click the faded thumbs up icon to mark that a participant has had an opportunity to speak.
+  - The thumbs up button transforms into full color, providing a visual indicator of active participation.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- **Dynamic Popup Interface:**
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+  - Access the extension's features through a convenient popup interface.
+  - Effortlessly manage participant engagement without disrupting your meeting flow.
+
+- **Efficient and Lightweight:**
+  - Designed to be lightweight and unobtrusive, Cooperative Meet Tracker seamlessly integrates with your Google Meet experience without adding unnecessary complexity.
+
+## Known Issues
+
+- **Fullscreen Tracking Loss:**
+  - Please note that if the meeting is fullscreened, all tracking will be lost.
+
+## Important Warning
+
+- **Client-Sided Tracking:**
+  - Cooperative Meet Tracker relies on client-sided tracking, meaning that no one else in the meeting will see the tracking buttons, nor see whether someone has been marked as having shared or not.
+
+Empower your team or classroom with Cooperative Meet Tracker, fostering a collaborative environment where every voice matters. Download the extension now and revolutionize your Google Meet meetings!
