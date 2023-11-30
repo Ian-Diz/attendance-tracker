@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "name": "Cooperative Meet Tracker",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["scripting"],
+  "host_permissions": ["https://meet.google.com/*"],
+  "icons": {
+    "32": "icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["thumbs-up-regular.png", "thumbs-up-solid.png"],
+      "matches": ["https://*/*"]
+    }
+  ]
+}
