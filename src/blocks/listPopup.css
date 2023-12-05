@@ -1,0 +1,8 @@
+.popup {
+  display: flex;
+  position: absolute;
+  z-index: 10;
+  background-color: blue;
+  width: 200px;
+  height: 200px;
+}

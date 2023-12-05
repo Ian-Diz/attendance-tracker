@@ -1,0 +1,39 @@
+.extension {
+  font-family: "Inter", system-ui, "Avenir", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.87);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: fit-content;
+  align-items: center;
+}
+
+.extension__title {
+  font-size: 25px;
+}
+
+.extension__card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.extension__button {
+  width: 180px;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  border: 1px solid white;
+  text-align: center;
+  margin: 0 auto 0 auto;
+}
+
+.extension__button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

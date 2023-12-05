@@ -15,5 +15,8 @@
       "resources": ["thumbs-up-regular.png", "thumbs-up-solid.png"],
       "matches": ["https://*/*"]
     }
-  ]
+  ],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'"
+  }
 }
