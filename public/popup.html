@@ -1,22 +1,27 @@
-<div class="popup" id="CMTPopupBody">
-    <div class="popup__container">
-      <button class="popup__positioning" id="AttTraPos1"></button>
-      <button class="popup__positioning" id="AttTraPos2"></button>
-      <button class="popup__positioning" id="AttTraPos3"></button>
-      <button class="popup__positioning" id="AttTraPos4"></button>
-    </div>
-    <button class="popup__drag" id="CMTPopupBodyDrag"></button>
-    <img alt="Close popup" class="popup__close" />
+<div class="popup" id="ATPopupBody">
+  <div class="popup__positioning-container">
+    <button class="popup__positioning" id="AttTraPos1"></button>
+    <button class="popup__positioning" id="AttTraPos2"></button>
+    <button class="popup__positioning" id="AttTraPos3"></button>
+    <button class="popup__positioning" id="AttTraPos4"></button>
+  </div>
+  <div class="popup__button-container">
+    <button class="popup__drag" id="ATPopupBodyDrag"></button>
+    <button class="popup__delete" id="ATDeleteStoredInfo">
+      Delete Stored Info
+    </button>
+  </div>
+  <img alt="Close popup" class="popup__close" />
   <template id="nameCard">
     <article class="card">
       <p class="card__name"></p>
-        <button class="card__thumbs">
-          <img
-            alt="Thumbs up to signal whether someone has shared"
-            class="card__image"
-          />
-        </button>
-      </article>
-    </template>
-  </div>
+      <button class="card__thumbs">
+        <img
+          alt="Thumbs up to signal whether someone has shared"
+          class="card__image"
+        />
+      </button>
+    </article>
+  </template>
+  <div id="ATPopupList"></div>
 </div>

@@ -27,7 +27,7 @@
   ],
   "content_scripts": [
     {
-      "css": ["listPopup.css"],
+      "css": ["popup.css", "card.css"],
       "matches": ["https://meet.google.com/*"]
     }
   ]

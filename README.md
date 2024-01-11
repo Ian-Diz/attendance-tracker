@@ -1,35 +1,40 @@
-# Cooperative Meet Tracker Chrome Extension
+# Attendance Tracker - Elevate Participation in Google Meet
 
-Improve collaboration and ensure equal participation in your Google Meet meetings with Cooperative Meet Tracker, a powerful Chrome extension designed to track and enhance communication dynamics. With a user-friendly interface, this extension helps you keep a close eye on who has shared their thoughts, ensuring a balanced and inclusive discussion.
+**Description:**
 
-## Key Features
+Attendance Tracker, a Chrome extension, is your essential companion for fostering inclusive discussions in Google Meet sessions. This intuitive tool injects a popup into the upper left-hand corner of the web page, featuring a comprehensive list of participants' names alongside a clickable thumbs up button. Simply mark a participant as having spoken by clicking the thumbs up, filling it with distinctive color for clear tracking.
 
-- **Real-time Participation Tracking:**
+**Key Features:**
 
-  - Seamlessly track who has spoken during your Google Meet sessions with the Cooperative Meet Tracker.
-  - An unobtrusive faded thumbs up icon appears next to each participant's name.
+1. **Real-time Participation Tracking:**
 
-- **Interactive Thumbs Up System:**
+   - The popup displays a list of participants for quick and easy tracking.
+   - Click the thumbs up button to mark participants who have actively contributed to the discussion.
 
-  - Click the faded thumbs up icon to mark that a participant has had an opportunity to speak.
-  - The thumbs up button transforms into full color, providing a visual indicator of active participation.
+2. **Effortless Tracking Interface:**
 
-- **Dynamic Popup Interface:**
+   - An unobtrusive and easily accessible popup ensures seamless integration with your Google Meet experience.
+   - The intuitive design allows for quick participation marking without disrupting the flow of your meetings.
 
-  - Access the extension's features through a convenient popup interface.
-  - Effortlessly manage participant engagement without disrupting your meeting flow.
+3. **Customizable Popup Position:**
 
-- **Efficient and Lightweight:**
-  - Designed to be lightweight and unobtrusive, Cooperative Meet Tracker seamlessly integrates with your Google Meet experience without adding unnecessary complexity.
+   - Move the popup wherever you please within the tab, tailoring the interface to your preferred location for optimal convenience.
 
-## Known Issues
+4. **Visual Confirmation:**
 
-- **Fullscreen Tracking Loss:**
-  - Please note that if the meeting is fullscreened, all tracking will be lost.
+   - The distinctive color-filled thumbs up provides a visual confirmation of active participation.
+   - Ensure everyone gets an opportunity to speak and be heard in your virtual meetings.
 
-## Important Warning
+5. **Data Persistence Update:**
 
-- **Client-Sided Tracking:**
-  - Cooperative Meet Tracker relies on client-sided tracking, meaning that no one else in the meeting will see the tracking buttons, nor see whether someone has been marked as having shared or not.
+   - Recent improvements include enhanced data persistence by associating tracking data with the Google Meet TabID. This ensures that attendance records are securely stored, even if the page is refreshed or closed. Enjoy a more robust and reliable tracking experience across sessions.
 
-Empower your team or classroom with Cooperative Meet Tracker, fostering a collaborative environment where every voice matters. Download the extension now and revolutionize your Google Meet meetings!
+6. **One-Click Data Deletion:**
+   - Easily delete any stored information with a simple click of a button, offering control and privacy over attendance data.
+
+**Warning:**
+
+- **Browser-Dependent Data Storage:**
+  - Please be aware that the Attendance Tracker's data is saved locally within your browser. This means that tracking information is specific to your device and cannot be transferred between browsers.
+
+Empower your Google Meet sessions with Attendance Tracker, ensuring that every voice is acknowledged. Download the extension today and stay tuned for exciting updates!

@@ -15,16 +15,16 @@ const App = () => {
       func: () => {
         let activeTab = window.location.toString();
 
-        if (document.getElementById("CMTPopupBody")) {
-          document.getElementById("CMTPopupBody").remove();
+        if (document.getElementById("ATPopupBody")) {
+          document.getElementById("ATPopupBody").remove();
         }
 
         fetch(chrome.runtime.getURL("/popup.html"))
           .then((r) => r.text())
-          /*inserts list popup into page*/ .then((html) => {
+          /*Inserts list popup into page*/ .then((html) => {
             document.body.insertAdjacentHTML("beforeend", html);
           })
-          /*handles the dragElement*/ .then(() => {
+          /*Handles functionality to let the popup be draggable*/ .then(() => {
             const dragElement = (elmnt) => {
               var pos1 = 0,
                 pos2 = 0,
@@ -56,16 +56,17 @@ const App = () => {
                 document.onmousemove = elementDrag;
               };
 
-              document.getElementById("CMTPopupBodyDrag").onmousedown =
+              document.getElementById("ATPopupBodyDrag").onmousedown =
                 dragMouseDown;
             };
 
-            dragElement(document.getElementById("CMTPopupBody"));
+            dragElement(document.getElementById("ATPopupBody"));
           })
-          /*adds the names to list popup then adds names to storage*/ .then(
+          /*The rest of funcionality, more comments further down*/ .then(
             async () => {
               console.log("---------------- NEW BUILD ----------------");
 
+              //Finds out if the tab has any name data, if so returns data, else returns empty obj
               const fetchStoredNames = async () => {
                 let chromeStored = await chrome.storage.sync.get([activeTab]);
 
@@ -79,43 +80,83 @@ const App = () => {
               let storageObj = {};
               let initialList = await fetchStoredNames();
               let comparableArr = [];
+              let notPresent = {};
 
-              for (let name in initialList) {
-                comparableArr.push(name);
-              }
-
-              for (let name of nameElems) {
-                namesText.push(name.textContent);
-              }
-
-              for (let name of namesText) {
-                if (comparableArr.includes(name)) {
-                  continue;
-                } else {
-                  storageObj[`${name}`] = false;
+              //Runs three for in loops, fills namesText Arr, storageObj Obj and comparableArr Arr
+              const prepareData = () => {
+                for (let name in initialList) {
+                  comparableArr.push(name);
                 }
-              }
 
-              storageObj = {
-                ...storageObj,
-                ...initialList,
+                for (let name of nameElems) {
+                  namesText.push(name.textContent);
+                }
+
+                for (let name in initialList) {
+                  if (namesText.includes(name)) {
+                    continue;
+                  } else {
+                    notPresent[`${name}`] = initialList[`${name}`];
+                    delete initialList[`${name}`];
+                  }
+                }
+
+                for (let name of namesText) {
+                  if (comparableArr.includes(name)) {
+                    continue;
+                  } else {
+                    storageObj[`${name}`] = false;
+                  }
+                }
+
+                storageObj = {
+                  ...storageObj,
+                  ...initialList,
+                };
               };
 
-              console.log(initialList);
-              console.log("^initialList ----------");
-              console.log(storageObj);
-              console.log("^storageObj ----------");
+              prepareData();
 
-              const popupElemSel = document.getElementById("CMTPopupBody");
-              const closeButton = popupElemSel.querySelector(".popup__close");
+              const popupElemSel = document.getElementById("ATPopupBody");
 
-              closeButton.src = chrome.runtime.getURL("close-icon.png");
+              //Removes the popup from the web page
+              const closePopup = () => {
+                document.getElementById("ATPopupBody").remove();
+              };
 
-              closeButton.addEventListener("click", () => {
-                document.getElementById("CMTPopupBody").remove();
-              });
+              //Finds the closeButton, sets it's img src, sets addEventListener to trigger closePopup();
+              const prepareCloseButton = () => {
+                const closeButton = popupElemSel.querySelector(".popup__close");
 
-              const setPosEvents = () => {
+                closeButton.src = chrome.runtime.getURL("close-icon.png");
+
+                closeButton.addEventListener("click", () => {
+                  closePopup();
+                });
+              };
+
+              prepareCloseButton();
+
+              /*Find the delete button, sets addEventListener which sets all storage vars to empty, 
+                sets chrome.storage.sync to empty, then triggers closePopup()*/
+              const prepareDeleteButton = () => {
+                const deleteButton =
+                  popupElemSel.querySelector(".popup__delete");
+
+                deleteButton.addEventListener("click", () => {
+                  storageObj = {};
+                  notPresent = {};
+                  chrome.storage.sync.set({
+                    [activeTab]: JSON.stringify({}),
+                  });
+                  closePopup();
+                });
+              };
+
+              prepareDeleteButton();
+
+              //Series of addEventListeners that make the snap to corner buttons work
+              const setPosButtonEvents = () => {
                 const posBut1 = document.getElementById("AttTraPos1");
                 const posBut2 = document.getElementById("AttTraPos2");
                 const posBut3 = document.getElementById("AttTraPos3");
@@ -150,14 +191,17 @@ const App = () => {
                 });
               };
 
-              setPosEvents();
+              setPosButtonEvents();
 
-              class Popup {
+              //Class for the list of names that handles the rendering of the list of NamePlates
+              class NameList {
                 constructor(renderer, container) {
                   this._renderer = renderer;
                   this._container = container;
                 }
 
+                /*Takes an obj in the format {...NameOfAttendee: boolean, NameOfAttendee: boolean...}
+                  and iterates through it rendering a NamePlate for each key in obj*/
                 renderItems(data) {
                   for (let name in data) {
                     this._container.append(
@@ -167,6 +211,7 @@ const App = () => {
                 }
               }
 
+              //Class for handling renderings for individual NamePlate elems
               class NamePlate {
                 constructor(templateSelector, data, { handleThumbsButton }) {
                   this._templateSelector = templateSelector;
@@ -175,6 +220,7 @@ const App = () => {
                   this._handleThumbsButton = handleThumbsButton;
                 }
 
+                //Gets the template from popup.html
                 _getTemplate() {
                   const cardElem = document
                     .querySelector(this._templateSelector)
@@ -183,6 +229,7 @@ const App = () => {
                   return cardElem;
                 }
 
+                //Handles generating an individual card, assigns _cardName/Image and sets _cardImage.src
                 generateCard() {
                   this._elem = this._getTemplate();
                   this._setEventHandlers();
@@ -205,6 +252,7 @@ const App = () => {
                   return this._elem;
                 }
 
+                //Handles when user clicks on unfilled thumbsButton
                 addThumbs() {
                   this._cardImage.src = chrome.runtime.getURL(
                     "thumbs-up-solid.png"
@@ -213,6 +261,7 @@ const App = () => {
                   storageObj[`${this._name}`] = true;
                 }
 
+                //Handles when user clicks on filled thumbsButton
                 removeThumbs() {
                   this._cardImage.src = chrome.runtime.getURL(
                     "thumbs-up-regular.png"
@@ -221,6 +270,7 @@ const App = () => {
                   storageObj[`${this._name}`] = false;
                 }
 
+                //Sets eventHandlers for thumbsButton
                 _setEventHandlers() {
                   this._elem
                     .querySelector(".card__thumbs")
@@ -230,31 +280,46 @@ const App = () => {
                 }
               }
 
-              const nameSection = new Popup((name, isClicked) => {
-                const namePlate = new NamePlate(
-                  "#nameCard",
-                  { name, isClicked },
-                  {
-                    handleThumbsButton: async (card) => {
-                      if (card.isClicked) {
-                        card.removeThumbs();
-                        chrome.storage.sync.set({
-                          [activeTab]: JSON.stringify(storageObj),
-                        });
-                      } else {
-                        card.addThumbs();
-                        chrome.storage.sync.set({
-                          [activeTab]: JSON.stringify(storageObj),
-                        });
-                      }
-                    },
-                  }
-                );
+              const nameSection = new NameList(
+                //Renderer func required for NameList class
+                (name, isClicked) => {
+                  const namePlate = new NamePlate(
+                    "#nameCard",
+                    { name, isClicked },
+                    {
+                      //handleThumbsButton func required for NamePlate class
+                      handleThumbsButton: async (card) => {
+                        if (card.isClicked) {
+                          card.removeThumbs();
+                          storageObj = {
+                            ...storageObj,
+                            ...notPresent,
+                          };
+                          chrome.storage.sync.set({
+                            [activeTab]: JSON.stringify(storageObj),
+                          });
+                        } else {
+                          card.addThumbs();
+                          storageObj = {
+                            ...storageObj,
+                            ...notPresent,
+                          };
+                          chrome.storage.sync.set({
+                            [activeTab]: JSON.stringify(storageObj),
+                          });
+                        }
+                      },
+                    }
+                  );
 
-                const namePlateElem = namePlate.generateCard();
-                return namePlateElem;
-              }, popupElemSel);
+                  const namePlateElem = namePlate.generateCard();
+                  return namePlateElem;
+                },
+                document.getElementById("ATPopupList")
+              );
 
+              /*Takes an obj in the format {...NameOfAttendee: boolean, NameOfAttendee: boolean...}
+                and iterates through it rendering a NamePlate for each key in obj*/
               nameSection.renderItems(storageObj);
             }
           );
@@ -262,6 +327,7 @@ const App = () => {
     });
   };
 
+  //React component to render the popup that shows when clicking on the extension icon
   return (
     <>
       {regexTest(activeTabURL) ? (
